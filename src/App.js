@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import heroPic from "./images/img_bg_2.jpg";
 import footerPic from "./images/footer.jpeg";
 import bridePic from "./images/bride.jpg";
@@ -25,6 +25,36 @@ const loadScript = (src) => {
 };
 
 const App = () => {
+  const [timer, setTimer] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const countdownDate = new Date("10/12/2024 5:00:00 PM").getTime();
+
+    const calculateTimeRemaining = () => {
+      const now = new Date().getTime();
+      const timeRemaining = countdownDate - now;
+
+      if (timeRemaining > 0) {
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        setTimer({ days, hours, minutes, seconds });
+      }
+    };
+
+    calculateTimeRemaining();
+    const interval = setInterval(calculateTimeRemaining, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     loadScript("js/jquery.min.js")
       .then(() => loadScript("js/jquery.easing.1.3.js"))
@@ -38,29 +68,16 @@ const App = () => {
       .then(() => loadScript("js/simplyCountdown.js"))
       .then(() => loadScript("js/main.js"))
       .catch((err) => console.error("Failed to load script", err));
-
-    // Initialize countdown after scripts load
-    const initializeCountdown = () => {
-      const d = new Date(2024, 7, 28);
-      window.simplyCountdown(".simply-countdown-one", {
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate(),
-      });
-    };
-
-    window.addEventListener("load", initializeCountdown);
-
-    return () => {
-      window.removeEventListener("load", initializeCountdown);
-    };
   }, []);
 
   return (
     <div id="page">
       <div className="fh5co-loader"></div>
 
-      <nav className="fh5co-nav" role="navigation">
+      <nav
+        className="fh5co-nav"
+        role="navigation"
+      >
         <div className="container">
           <div className="row">
             <div className="col-xs-2">
@@ -92,7 +109,32 @@ const App = () => {
                 >
                   <h1>Sophio &amp; Tornike</h1>
                   <h2>We Are Getting Married</h2>
-                  <div className="simply-countdown simply-countdown-one"></div>
+                  <div className="simply-countdown simply-countdown-one">
+                    <div className="simply-section simply-days-section">
+                      <div>
+                        <span className="simply-amount">{timer.days}</span>
+                        <span className="simply-word">day</span>
+                      </div>
+                    </div>
+                    <div className="simply-section simply-hours-section">
+                      <div>
+                        <span className="simply-amount">{timer.hours}</span>
+                        <span className="simply-word">hour</span>
+                      </div>
+                    </div>
+                    <div className="simply-section simply-minutes-section">
+                      <div>
+                        <span className="simply-amount">{timer.minutes}</span>
+                        <span className="simply-word">minute</span>
+                      </div>
+                    </div>
+                    <div className="simply-section simply-seconds-section">
+                      <div>
+                        <span className="simply-amount">{timer.seconds}</span>
+                        <span className="simply-word">second</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -112,18 +154,29 @@ const App = () => {
           <div className="couple-wrap animate-box">
             <div className="couple-half">
               <div className="groom">
-                <img src={groomPic} alt="groom" className="img-responsive" />
+                <img
+                  src={groomPic}
+                  alt="groom"
+                  className="img-responsive"
+                />
               </div>
               <div className="desc-groom">
                 <h3 className="couple-name">თორნიკე კარიჭაშვილი</h3>
               </div>
             </div>
             <p className="heart text-center">
-              <img className="heart-icon" src={heartIcon} />
+              <img
+                className="heart-icon"
+                src={heartIcon}
+              />
             </p>
             <div className="couple-half">
               <div className="bride">
-                <img src={bridePic} alt="bride" className="img-responsive" />
+                <img
+                  src={bridePic}
+                  alt="bride"
+                  className="img-responsive"
+                />
               </div>
               <div className="desc-bride">
                 <h3 className="couple-name">სოფიო დავითიძე</h3>
@@ -164,12 +217,9 @@ const App = () => {
                         <span>12 ოქტომბერი, 2024</span>
                       </div>
                       <p>
-                        გვსურს, რომ თქვენთან ერთად აღვნიშნოთ ჩვენთვის ყველაზე
-                        მნიშვნელოვანი დღე. სწორედ ამიტომ, გეპაგიჟებით ჩვენს
-                        საქორწინო ცერემონიაზე, რომელიც 12 ოქტომბერს უფლისციხეში
-                        გაიმართება. ადგილზე დაგვხდება ულამაზესი ეკლესია, სადაც
-                        12:00 საათზე ჯვრისწერის ცერემონიაა დაგეგმილი , ხოლო
-                        13:00 საათიდან დაიწყება ხელის მოწერის ღონისძიება.
+                        გვსურს, რომ თქვენთან ერთად აღვნიშნოთ ჩვენთვის ყველაზე მნიშვნელოვანი დღე. სწორედ ამიტომ, გეპაგიჟებით ჩვენს საქორწინო
+                        ცერემონიაზე, რომელიც 12 ოქტომბერს უფლისციხეში გაიმართება. ადგილზე დაგვხდება ულამაზესი ეკლესია, სადაც 12:00 საათზე ჯვრისწერის
+                        ცერემონიაა დაგეგმილი , ხოლო 13:00 საათიდან დაიწყება ხელის მოწერის ღონისძიება.
                       </p>
                     </div>
                   </div>
@@ -187,13 +237,10 @@ const App = () => {
                         <span>12 ოქტომბერი, 2024</span>
                       </div>
                       <p>
-                        გაგვიხარდება თუ ჩვენთვის ყველაზე მნიშვნელოვან დღეს ჩვენს
-                        გვერდით გაატარებთ! ქორწინების მთავარი ცერემონია რესტორან
-                        ცირკში საღამოს 5 საათიდან დაიწყება, სადაც ერთად
-                        ვიზეიმებთ ჩვენს სიყვარულს და ბედნიერებას. დღის ბოლოს კი,
-                        21:30 საათზე, დაგეგმილია ტორტის გაჭრის ცერემონია, რაც
-                        კიდევ უფრო დაატკბობს ამ განსაკუთრებულ დღეს. გვსურს, რომ
-                        ეს სიყვარულით სავსე დღე თქვენთან ერთად გავატაროთ!
+                        გაგვიხარდება თუ ჩვენთვის ყველაზე მნიშვნელოვან დღეს ჩვენს გვერდით გაატარებთ! ქორწინების მთავარი ცერემონია რესტორან ცირკში
+                        საღამოს 5 საათიდან დაიწყება, სადაც ერთად ვიზეიმებთ ჩვენს სიყვარულს და ბედნიერებას. დღის ბოლოს კი, 21:30 საათზე, დაგეგმილია
+                        ტორტის გაჭრის ცერემონია, რაც კიდევ უფრო დაატკბობს ამ განსაკუთრებულ დღეს. გვსურს, რომ ეს სიყვარულით სავსე დღე თქვენთან ერთად
+                        გავატაროთ!
                       </p>
                     </div>
                   </div>
@@ -204,7 +251,10 @@ const App = () => {
         </div>
       </div>
 
-      <div id="fh5co-gallery" className="fh5co-section-gray">
+      <div
+        id="fh5co-gallery"
+        className="fh5co-section-gray"
+      >
         <div className="container">
           <div className="row">
             <div className="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
@@ -275,20 +325,24 @@ const App = () => {
                     <div className="item">
                       <div className="testimony-slide active text-center">
                         <figure>
-                          <img src="images/couple-1.jpg" alt="user" />
+                          <img
+                            src="images/couple-1.jpg"
+                            alt="user"
+                          />
                         </figure>
                         <span>
                           John Doe, via
-                          <a href="#" className="twitter">
+                          <a
+                            href="#"
+                            className="twitter"
+                          >
                             Twitter
                           </a>
                         </span>
                         <blockquote>
                           <p>
-                            "Far far away, behind the word mountains, far from
-                            the countries Vokalia and Consonantia, there live
-                            the blind texts. Separated they live in
-                            Bookmarksgrove right at the coast of the Semantics"
+                            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+                            Separated they live in Bookmarksgrove right at the coast of the Semantics"
                           </p>
                         </blockquote>
                       </div>
@@ -296,19 +350,24 @@ const App = () => {
                     <div className="item">
                       <div className="testimony-slide active text-center">
                         <figure>
-                          <img src="images/couple-2.jpg" alt="user" />
+                          <img
+                            src="images/couple-2.jpg"
+                            alt="user"
+                          />
                         </figure>
                         <span>
                           John Doe, via
-                          <a href="#" className="twitter">
+                          <a
+                            href="#"
+                            className="twitter"
+                          >
                             Twitter
                           </a>
                         </span>
                         <blockquote>
                           <p>
-                            "Far far away, behind the word mountains, far from
-                            the countries Vokalia and Consonantia, at the coast
-                            of the Semantics, a large language ocean."
+                            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, at the coast of the Semantics, a
+                            large language ocean."
                           </p>
                         </blockquote>
                       </div>
@@ -316,20 +375,24 @@ const App = () => {
                     <div className="item">
                       <div className="testimony-slide active text-center">
                         <figure>
-                          <img src="images/couple-3.jpg" alt="user" />
+                          <img
+                            src="images/couple-3.jpg"
+                            alt="user"
+                          />
                         </figure>
                         <span>
                           John Doe, via
-                          <a href="#" className="twitter">
+                          <a
+                            href="#"
+                            className="twitter"
+                          >
                             Twitter
                           </a>
                         </span>
                         <blockquote>
                           <p>
-                            "Far far away, far from the countries Vokalia and
-                            Consonantia, there live the blind texts. Separated
-                            they live in Bookmarksgrove right at the coast of
-                            the Semantics, a large language ocean."
+                            "Far far away, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in
+                            Bookmarksgrove right at the coast of the Semantics, a large language ocean."
                           </p>
                         </blockquote>
                       </div>
