@@ -12,6 +12,9 @@ import gallery5 from "./images/gallery-5.jpg";
 import gallery6 from "./images/gallery-6.jpg";
 import heartPic from "./images/gallery-8.jpg";
 import heartIcon from "./images/heart-outline.svg";
+import tamoProfilePic from "./images/tamo-profile-picture.jpg";
+import ditoProfilePic from "./images/profile-photo-dito.png";
+import shotaProfilePic from "./images/profile-photo-shota.jpeg";
 
 const loadScript = (src) => {
   return new Promise((resolve, reject) => {
@@ -326,23 +329,19 @@ const App = () => {
                       <div className="testimony-slide active text-center">
                         <figure>
                           <img
-                            src="images/couple-1.jpg"
+                            className="friends-pic"
+                            src={tamoProfilePic}
                             alt="user"
                           />
                         </figure>
                         <span>
-                          John Doe, via
-                          <a
-                            href="#"
-                            className="twitter"
-                          >
-                            Twitter
-                          </a>
+                          თამუნა უროტაძე
+                          <span className="twitter">მეჯვარე</span>
                         </span>
                         <blockquote>
                           <p>
-                            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
-                            Separated they live in Bookmarksgrove right at the coast of the Semantics"
+                            "სოფი და თორნიკე დღეს თქვენთვის ყველაზე მნიშვნელოვანი დღეა და მიხარია, რომ თქვენს გვერდით დგომის ბედნიწრება მხვდა წილად.
+                            გისურვებთ უსასრულო ბედნიერებას და ბევრ ბედნიერ წუთს ჩვენ 3თან ერთად!! "
                           </p>
                         </blockquote>
                       </div>
@@ -351,23 +350,19 @@ const App = () => {
                       <div className="testimony-slide active text-center">
                         <figure>
                           <img
-                            src="images/couple-2.jpg"
+                            className="friends-pic"
+                            src={ditoProfilePic}
                             alt="user"
                           />
                         </figure>
                         <span>
-                          John Doe, via
-                          <a
-                            href="#"
-                            className="twitter"
-                          >
-                            Twitter
-                          </a>
+                          დემეტრე ტეტუნაშვილი
+                          <span className="twitter">მეჯვარე</span>
                         </span>
                         <blockquote>
                           <p>
-                            "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, at the coast of the Semantics, a
-                            large language ocean."
+                            "სოფი და თოკო, გილოცავთ ამ განსაკუთრებულ დღეს! გისურვებთ, რომ მუდამ სითბოთი და სიყვარულით ყოფილიყავით სავსე. ბედნიერება და
+                            სიყვარული ყოფილიყოს თქვენი თანამგზავრი მუდამ."
                           </p>
                         </blockquote>
                       </div>
@@ -376,23 +371,18 @@ const App = () => {
                       <div className="testimony-slide active text-center">
                         <figure>
                           <img
-                            src="images/couple-3.jpg"
+                            className="friends-pic"
+                            src={shotaProfilePic}
                             alt="user"
                           />
                         </figure>
                         <span>
-                          John Doe, via
-                          <a
-                            href="#"
-                            className="twitter"
-                          >
-                            Twitter
-                          </a>
+                          შოთა საბაშვილი
+                          <span className="twitter">უბრალოდ მეგობარი</span>
                         </span>
                         <blockquote>
                           <p>
-                            "Far far away, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in
-                            Bookmarksgrove right at the coast of the Semantics, a large language ocean."
+                            "სოფი და თოკო მიხარია, რომ თქვენი მოსაწვევის საიტის დამზადება მე მხვდა წილად. მინდა ძალიან ბედნიერები იყოთ, ჩემთან ერთად."
                           </p>
                         </blockquote>
                       </div>
